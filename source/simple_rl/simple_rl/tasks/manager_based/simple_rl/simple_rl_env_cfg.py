@@ -22,7 +22,7 @@ from . import mdp
 from simple_rl.robots.so_arm import SO_ARM101_CFG  # isort:skip
 
 # Name of the end-effector body that the reach reward/command tracks.
-EE_BODY_NAME = "moving_jaw_08d"
+EE_BODY_NAME = "ee_tcp"
 # Joints actuated by the policy. The gripper joint (joint6) is left uncontrolled for this task.
 ARM_JOINT_NAMES = ["joint_1", "joint2", "joint3", "joint4", "joint5"]
 
@@ -81,12 +81,12 @@ class CommandsCfg:
 class ActionsCfg:
     """Action specifications for the MDP."""
 
-    # arm_action = mdp.JointPositionActionCfg(
-    #     asset_name="robot",
-    #     joint_names=ARM_JOINT_NAMES,
-    #     scale=0.5,
-    #     use_default_offset=True,
-    # )
+    arm_action = mdp.JointPositionActionCfg(
+        asset_name="robot",
+        joint_names=ARM_JOINT_NAMES,
+        scale=0.5,
+        use_default_offset=True,
+    )
 
 
 @configclass
@@ -212,8 +212,8 @@ class SimpleRlEnvCfg(ManagerBasedRLEnvCfg):
         self.sim.render_interval = self.decimation
 
         # For debugging
-        self.sim.use_fabric = False
-        self.sim.device = "cpu"
+        # self.sim.use_fabric = False
+        # self.sim.device = "cpu"
 
 
 @configclass

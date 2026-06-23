@@ -49,8 +49,8 @@ SO_ARM101_CFG = ArticulationCfg(
     actuators={
         "arm": ImplicitActuatorCfg(
             joint_names_expr=["joint_1", "joint2", "joint3", "joint4", "joint5"],
-            effort_limit_sim=1.9,
-            velocity_limit_sim=1.5,
+            effort_limit_sim=15.9,
+            velocity_limit_sim=13.8,
             stiffness={
                 "joint_1": 200.0,
                 "joint2": 170.0,
