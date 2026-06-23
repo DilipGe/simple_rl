@@ -81,12 +81,12 @@ class CommandsCfg:
 class ActionsCfg:
     """Action specifications for the MDP."""
 
-    # arm_action = mdp.JointPositionActionCfg(
-    #     asset_name="robot",
-    #     joint_names=ARM_JOINT_NAMES,
-    #     scale=0.5,
-    #     use_default_offset=True,
-    # )
+    arm_action = mdp.JointPositionActionCfg(
+        asset_name="robot",
+        joint_names=ARM_JOINT_NAMES,
+        scale=0.5,
+        use_default_offset=True,
+    )
 
 
 @configclass
@@ -210,10 +210,6 @@ class SimpleRlEnvCfg(ManagerBasedRLEnvCfg):
         # simulation settings
         self.sim.dt = 1 / 120
         self.sim.render_interval = self.decimation
-
-        # For debugging
-        self.sim.use_fabric = False
-        self.sim.device = "cpu"
 
 
 @configclass
