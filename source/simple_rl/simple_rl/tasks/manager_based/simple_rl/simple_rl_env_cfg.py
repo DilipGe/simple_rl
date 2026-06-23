@@ -57,9 +57,17 @@ class SimpleRlSceneCfg(InteractiveSceneCfg):
     robot: ArticulationCfg = SO_ARM101_CFG.replace(prim_path="{ENV_REGEX_NS}/Robot")
 
     # lights
+    # dim, neutral ambient fill - a dome light alone is shadowless, so it can't define edges
     dome_light = AssetBaseCfg(
         prim_path="/World/DomeLight",
-        spawn=sim_utils.DomeLightCfg(color=(0.9, 0.9, 0.9), intensity=500.0),
+        spawn=sim_utils.DomeLightCfg(color=(0.75, 0.75, 0.75), intensity=250.0),
+    )
+
+    # angled key light - casts directional shadows so the table edges are actually visible
+    key_light = AssetBaseCfg(
+        prim_path="/World/KeyLight",
+        spawn=sim_utils.DistantLightCfg(color=(1.0, 0.95, 0.85), intensity=3000.0, angle=0.53),
+        init_state=AssetBaseCfg.InitialStateCfg(rot=(0.9239, 0.3827, 0.0, 0.0)),
     )
 
 
