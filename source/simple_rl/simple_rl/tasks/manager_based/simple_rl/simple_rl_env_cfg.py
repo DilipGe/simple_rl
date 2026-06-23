@@ -15,6 +15,7 @@ from isaaclab.managers import SceneEntityCfg
 from isaaclab.managers import TerminationTermCfg as DoneTerm
 from isaaclab.scene import InteractiveSceneCfg
 from isaaclab.utils import configclass
+from isaaclab.utils.assets import ISAAC_NUCLEUS_DIR
 from isaaclab.utils.noise import AdditiveUniformNoiseCfg as Unoise
 
 from . import mdp
@@ -36,10 +37,20 @@ ARM_JOINT_NAMES = ["joint_1", "joint2", "joint3", "joint4", "joint5"]
 class SimpleRlSceneCfg(InteractiveSceneCfg):
     """Configuration for a scene with the SO-ARM101 robot."""
 
-    # ground plane
+    # ground plane (lowered so the table's legs reach the floor while its surface stays at z=0)
     ground = AssetBaseCfg(
         prim_path="/World/ground",
         spawn=sim_utils.GroundPlaneCfg(size=(100.0, 100.0)),
+        init_state=AssetBaseCfg.InitialStateCfg(pos=(0.0, 0.0, -1.05)),
+    )
+
+    # table the robot is mounted on
+    table = AssetBaseCfg(
+        prim_path="{ENV_REGEX_NS}/Table",
+        spawn=sim_utils.UsdFileCfg(
+            usd_path=f"{ISAAC_NUCLEUS_DIR}/Props/Mounts/SeattleLabTable/table_instanceable.usd",
+        ),
+        init_state=AssetBaseCfg.InitialStateCfg(pos=(0.3, 0.0, 0.0), rot=(0.70711, 0.0, 0.0, 0.70711)),
     )
 
     # robot
